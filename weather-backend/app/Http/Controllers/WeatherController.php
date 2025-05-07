@@ -56,9 +56,9 @@ class WeatherController extends Controller
             ],
             'current' => [
                 'temp' => $currentWeather['main']['temp'],
-                'feels_like' => $currentWeather['main']['feels_like'],
                 'humidity' => $currentWeather['main']['humidity'],
                 'wind_speed' => $currentWeather['wind']['speed'],
+                'wind_direction' => $currentWeather['wind']['deg'],
                 'weather' => [
                     'main' => $currentWeather['weather'][0]['main'],
                     'description' => $currentWeather['weather'][0]['description'],
@@ -68,15 +68,16 @@ class WeatherController extends Controller
             ],
             'forecast' => array_map(function($day) {
                 return [
-                    'date' => date('Y-m-d H:i:s', $day['dt']),
-                    'temp' => $day['main']['temp'],
+                    'date' => date($day['date']),
+                    'temp_min' => $day['temp_min'],
+                    'temp_max' => $day['temp_max'],
                     'weather' => [
-                        'main' => $day['weather'][0]['main'],
-                        'description' => $day['weather'][0]['description'],
-                        'icon' => $day['weather'][0]['icon']
+                        'main' => $day['weather']['main'],
+                        'description' => $day['weather']['description'],
+                        'icon' => $day['weather']['icon']
                     ]
                 ];
-            }, $forecast)
+            }, $forecast) // Skip current and take next 3
         ]);
     }
 }
