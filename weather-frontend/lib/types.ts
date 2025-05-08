@@ -7,6 +7,7 @@ export type weatherData = {
     temp: number;
     humidity: number;
     wind_speed: number;
+    wind_direction: number;
     date: string;
     weather: {
       main: string;
