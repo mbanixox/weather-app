@@ -1,7 +1,15 @@
 import { weatherData } from "@/lib/types";
 import Image from "next/image";
 
-const Forecast = ({ weather }: { weather: weatherData }) => {
+const Forecast = ({
+  weather,
+  unit,
+}: {
+  weather: weatherData;
+  unit?: "C" | "F";
+}) => {
+  const value = unit === "C" ? "°C" : "F";
+
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -27,7 +35,7 @@ const Forecast = ({ weather }: { weather: weatherData }) => {
             </div>
             <div>
               <p className="text-lg">
-                {Math.round(day.temp_max)}-{Math.round(day.temp_min)}°C
+                {Math.round(day.temp_max)}-{Math.round(day.temp_min)}{value}
               </p>
             </div>
           </div>

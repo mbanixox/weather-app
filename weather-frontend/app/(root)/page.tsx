@@ -41,7 +41,7 @@ export default async function Home({
         </div>
       </div>
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6">
-        <Sidebar weather={processedWeather} />
+        <Sidebar weather={processedWeather} unit={unit} />
         <div className="space-y-6">
           <div className="hidden lg:block">
             <div className="bg-white rounded-xl shadow-md p-6 mb-6 flex items-center gap-4">
@@ -51,7 +51,7 @@ export default async function Home({
               <UnitToggle unit={unit} />
             </div>
           </div>
-          <Forecast weather={processedWeather} />
+          <Forecast weather={processedWeather} unit={unit} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <WindStatus weather={weather} />
             <Humidity weather={weather} />
