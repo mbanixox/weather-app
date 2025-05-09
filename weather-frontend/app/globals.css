@@ -11,6 +11,9 @@
 }
 
 @layer utilities {
+    .search-bar {
+        @apply flex gap-4;
+    }
     
 }
 
