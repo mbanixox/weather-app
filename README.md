@@ -1,6 +1,6 @@
 # Weather App Dashboard
 
-![Weather App Screenshot](./weather-screenshot.png)
+![Weather App Screenshot](./screenshot.png)
 
 A responsive weather application with real-time forecasts, built using Laravel and Next.js.
 
