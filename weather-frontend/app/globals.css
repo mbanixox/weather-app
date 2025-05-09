@@ -11,8 +11,14 @@
 }
 
 @layer utilities {
-    .search-bar {
-        @apply flex gap-4;
+    .search_bar {
+        @apply flex gap-4 max-w-xs w-full flex-row items-center;
+    }
+    .search_input {
+        @apply flex-1 border border-gray-300 rounded-lg px-4 py-2 w-full h-auto focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 backdrop-filter backdrop-blur-md bg-opacity-10;
+    }
+    .search_btn {
+        @apply bg-blue-500 text-white px-2 py-2 rounded-lg hover:bg-blue-600 transition-colors;
     }
     
 }
