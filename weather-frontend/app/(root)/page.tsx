@@ -7,11 +7,12 @@ import WindStatus from "@/components/WindStatus";
 import { fetchWeather } from "@/lib/actions";
 import { weatherData } from "@/lib/types";
 import { convertTemp } from "@/lib/utils";
+import { Suspense } from "react";
 
 export default async function Home({
   searchParams,
 }: {
-  searchParams: Promise<{ city?: string; unit?: 'C' | 'F' }>;
+  searchParams: Promise<{ city?: string; unit?: "C" | "F" }>;
 }) {
   const params = await searchParams;
   const city = params.city || "Nairobi";
@@ -19,18 +20,22 @@ export default async function Home({
 
   const unit = params.unit || "C";
 
-  const processedWeather = weather ? {
-    ...weather,
-    current: {
-      ...weather.current,
-      temp: convertTemp(weather.current.temp, unit),
-    },
-    forecast: weather.forecast.map((day: weatherData["forecast"][number]) => ({
-      ...day,
-      temp_min: convertTemp(day.temp_min, unit),
-      temp_max: convertTemp(day.temp_max, unit)
-    }))
-  } : null;
+  const processedWeather = weather
+    ? {
+        ...weather,
+        current: {
+          ...weather.current,
+          temp: convertTemp(weather.current.temp, unit),
+        },
+        forecast: weather.forecast.map(
+          (day: weatherData["forecast"][number]) => ({
+            ...day,
+            temp_min: convertTemp(day.temp_min, unit),
+            temp_max: convertTemp(day.temp_max, unit),
+          })
+        ),
+      }
+    : null;
 
   return (
     <div className="min-h-screen bg-gray-50 text-black p-4 md:p-8">
@@ -41,7 +46,13 @@ export default async function Home({
         </div>
       </div>
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6">
-        <Sidebar weather={processedWeather} unit={unit} />
+        <Suspense fallback={
+          <aside className="bg-white rounded-xl shadow-md p-6 h-full flex justify-center items-center">
+            ...Loading...
+          </aside>
+        }>
+          <Sidebar weather={processedWeather} unit={unit} />
+        </Suspense>
         <div className="space-y-6">
           <div className="hidden lg:block">
             <div className="bg-white rounded-xl shadow-md p-6 mb-6 flex items-center gap-4">
@@ -51,10 +62,14 @@ export default async function Home({
               <UnitToggle unit={unit} />
             </div>
           </div>
-          <Forecast weather={processedWeather} unit={unit} />
+          <Suspense>
+            <Forecast weather={processedWeather} unit={unit} />
+          </Suspense>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <WindStatus weather={weather} />
-            <Humidity weather={weather} />
+            <Suspense>
+              <WindStatus weather={weather} />
+              <Humidity weather={weather} />
+            </Suspense>
           </div>
         </div>
       </div>
