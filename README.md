@@ -65,12 +65,15 @@ A responsive weather application with real-time forecasts, built using Laravel a
 
 4. **Add Your API Key**
    Get a free API key from [OpenWeatherMap](https://openweathermap.org/api) and add it to the backend environment file:
+
    ```bash
    echo "OPENWEATHERMAP_API_KEY=your_key_here" >> ../weather-backend/.env
    echo "OPENWEATHERMAP_GEOCODING_URL=https://api.openweathermap.org/geo/1.0/direct" >> ../weather-backend/.env
    echo "OPENWEATHERMAP_WEATHER_URL=https://api.openweathermap.org/data/2.5/weather" >> ../weather-backend/.env
    echo "OPENWEATHERMAP_FORECAST_URL=https://api.openweathermap.org/data/2.5/forecast" >> ../weather-backend/.env
    ```
+
+   You can use the provided `.env.example` in folder `weather-backend` as a reference.
 
 5. **Run Development Servers**
    - In the backend directory:
@@ -87,14 +90,17 @@ A responsive weather application with real-time forecasts, built using Laravel a
 ## 🔧 Configuration
 
 ### Backend (`.env`)
-```ini
+```env
 APP_URL=http://localhost:8000
 OPENWEATHERMAP_API_KEY=your_key_here
+OPENWEATHERMAP_GEOCODING_URL=https://api.openweathermap.org/geo/1.0/direct
+OPENWEATHERMAP_WEATHER_URL=https://api.openweathermap.org/data/2.5/weather
+OPENWEATHERMAP_FORECAST_URL=https://api.openweathermap.org/data/2.5/forecast
 DB_CONNECTION=sqlite
 ```
 
 ### Frontend (`.env.local`)
-```ini
+```env
 BACKEND_URL=http://localhost:8000
 ```
 
